@@ -53,8 +53,7 @@ void ul_writelog(A a,B b,C c,D d,E e,F f) {fprintf(stderr,b,c,d,e,f);fprintf(std
 #define CHECK_NULL_POINTER(p,ret) if(NULL==(p)) { ul_writelog(UL_LOG_FATAL,"NULL real pointer [%s]",#p);return ret;};
 #define CHECK_NULL_VADDRESS32(p,ret) if(NULL_VADDRESS32==(p)) { ul_writelog(UL_LOG_FATAL,"NULL Vaddress32 [%s]",#p);return ret;};
 
-inline double get_wall_time()
-{
+inline double get_wall_time() {
   struct timeval tv;
   gettimeofday(&tv, NULL);
   return tv.tv_sec + 1e-6 * tv.tv_usec;
@@ -91,4 +90,3 @@ inline int better_strncpy(char* dest,const char* source,size_t length)
 }
 
 #endif
-

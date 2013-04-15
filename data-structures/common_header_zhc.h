@@ -59,18 +59,18 @@ inline double get_wall_time()
 }
 inline double get_clock_time()
 {
-	return 1.0*clock()/CLOCKS_PER_SEC;
+  return 1.0*clock()/CLOCKS_PER_SEC;
 }
 
 class auto_timer_t
 {
-	double start_time;
-	char* msg;
-	auto_timer_t(const char* p=""):start_time(get_wall_time()),msg(p){};
-	~auto_timer_t()
-	{
-		WRITE_LOG()	
-	};
+  double start_time;
+  char* msg;
+  auto_timer_t(const char* p=""):start_time(get_wall_time()),msg(p){};
+  ~auto_timer_t()
+  {
+    WRITE_LOG()  
+  };
 };
 
 #endif

@@ -126,32 +126,32 @@ int rmatch[N];
 int ff;
 bool augment(int v,const vector<vector<int> >& edge)
 {
-	for(int i=0;i<edge[v].size();i++)
-	{
-		int u=edge[v][i];
-		if(ff==rset[u])continue;
-		rset[u]=ff;
-		if(rmatch[u]==-1||augment(rmatch[u],edge))
-		{
-			rmatch[u]=v;
-			return true;
-		}
-	}
-	return false;
+  for(int i=0;i<edge[v].size();i++)
+  {
+    int u=edge[v][i];
+    if(ff==rset[u])continue;
+    rset[u]=ff;
+    if(rmatch[u]==-1||augment(rmatch[u],edge))
+    {
+      rmatch[u]=v;
+      return true;
+    }
+  }
+  return false;
 }
 int maxMatch(int n,int m,const vector<vector<int> >& edge)
 {
-	memset(rset,0,sizeof(rset[0])*m);
-	memset(rmatch,0xff,sizeof(int)*m);
-	int res=0;
-	ff=1;
-	for(int i=0;i<n;i++)
-	{
-		if(!augment(i,edge))continue;
-		res++;
-		ff++;
-		//memset(rset,false,sizeof(bool)*m);
-	}
-	return res;
+  memset(rset,0,sizeof(rset[0])*m);
+  memset(rmatch,0xff,sizeof(int)*m);
+  int res=0;
+  ff=1;
+  for(int i=0;i<n;i++)
+  {
+    if(!augment(i,edge))continue;
+    res++;
+    ff++;
+    //memset(rset,false,sizeof(bool)*m);
+  }
+  return res;
 };
 };

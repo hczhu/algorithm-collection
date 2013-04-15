@@ -64,31 +64,31 @@ inline void updateMin(T& a,const T& b){a=min(a,b);}
 template<typename T>
 inline vector<T> erase(vector<T> table,int ind)
 {
-	assert(ind<table.size());
-	table.erase(table.begin()+ind);
-	return table;
+  assert(ind<table.size());
+  table.erase(table.begin()+ind);
+  return table;
 }
 template<typename T>
 vector<T> unique(vector<T> table)
 {
-	SORT(table);
+  SORT(table);
   vector<T> res;
   unique_copy(table.begin(),table.end(),back_inserter(res));
   return res;
-	//return vector<T>(table.begin(),unique(table.begin(),table.end()));
+  //return vector<T>(table.begin(),unique(table.begin(),table.end()));
 }
 template<typename A,typename B>
 ostream& operator<<(ostream& out,const pair<A,B>& pp)
 {
-	out<<"("<<pp.first<<","<<pp.second<<")";
-	return out;
+  out<<"("<<pp.first<<","<<pp.second<<")";
+  return out;
 }
 template<typename A,typename B>
 istream& operator<<(istream& in,pair<A,B>& pp)
 {
-	cerr<<"A pair wanted"<<endl;
-	in>>pp.first>>pp.second;
-	return in;
+  cerr<<"A pair wanted"<<endl;
+  in>>pp.first>>pp.second;
+  return in;
 }
 
 template<typename T>
@@ -96,58 +96,58 @@ ostream& operator<<(ostream& out,const vector<T>& vect)
 {
   copy(vect.begin(),vect.end(),ostream_iterator<T>(out," "));
   return out;
-	out<<"length = "<<vect.size()<<endl;
-	for(int i=0;i<vect.size();i++)out<<vect[i]<<" ";
-	out<<endl;
-	return out;
+  out<<"length = "<<vect.size()<<endl;
+  for(int i=0;i<vect.size();i++)out<<vect[i]<<" ";
+  out<<endl;
+  return out;
 }
 ostream& operator<<(ostream& out,const vector<string>& vect)
 {
-	out<<vect.size()<<" X "<<vect[0].length()<<endl;
-	for(int i=0;i<vect.size();i++)out<<vect[i]<<endl;
-	return out;
+  out<<vect.size()<<" X "<<vect[0].length()<<endl;
+  for(int i=0;i<vect.size();i++)out<<vect[i]<<endl;
+  return out;
 }
 template<typename T>
 istream& operator>>(istream& in,vector<T>& vect)
 {
-	vect.clear();
-	int n;
-	cerr<<"A integer of length wanted"<<endl;
-	in>>n;
-	vect.resize(n);
-	cerr<<n<<" elements wanted"<<endl;
-	for(int i=0;i<n;i++)in>>vect[i];
-	return in;
+  vect.clear();
+  int n;
+  cerr<<"A integer of length wanted"<<endl;
+  in>>n;
+  vect.resize(n);
+  cerr<<n<<" elements wanted"<<endl;
+  for(int i=0;i<n;i++)in>>vect[i];
+  return in;
 }
 
 template<typename T>
 ostream& operator<<(ostream& out,const vector<vector<T> >& vect)
 {
-	out<<"row number="<<vect.size()<<endl;
-	for(int i=0;i<vect.size();i++)
-	{
-		out<<"row #"<<i<<":";
-		for(int j=0;j<vect[i].size();j++)
-			out<<" "<<vect[i][j];
-		out<<endl;
-	}
-	return out;
+  out<<"row number="<<vect.size()<<endl;
+  for(int i=0;i<vect.size();i++)
+  {
+    out<<"row #"<<i<<":";
+    for(int j=0;j<vect[i].size();j++)
+      out<<" "<<vect[i][j];
+    out<<endl;
+  }
+  return out;
 }
 template<typename T>
 istream& operator>>(istream& in,vector<vector<T> >& vect)
 {
-	vect.clear();
-	int n,m;
-	cerr<<"Two integers wanted"<<endl;
-	in>>n>>m;
-	vect.resize(n);
-	cerr<<"A matrix "<<n<<" X "<<m<<" wanted"<<endl;
-	for(int i=0;i<n;i++)
-	{
-		vect[i].resize(m);
-		for(int j=0;j<m;j++)in>>vect[i][j];
-	}
-	return in;
+  vect.clear();
+  int n,m;
+  cerr<<"Two integers wanted"<<endl;
+  in>>n>>m;
+  vect.resize(n);
+  cerr<<"A matrix "<<n<<" X "<<m<<" wanted"<<endl;
+  for(int i=0;i<n;i++)
+  {
+    vect[i].resize(m);
+    for(int j=0;j<m;j++)in>>vect[i][j];
+  }
+  return in;
 }
 
 
@@ -156,112 +156,112 @@ istream& operator>>(istream& in,vector<vector<T> >& vect)
 template<class T>
 string convert(T vv)
 {
-	ostringstream re;
-	re<<vv;
-	return re.str();
+  ostringstream re;
+  re<<vv;
+  return re.str();
 }
 template<typename T>
 T convert(const string& ss)
 {
-	istringstream is(ss);
-	T tmp;
-	is>>tmp;
-	return tmp;
+  istringstream is(ss);
+  T tmp;
+  is>>tmp;
+  return tmp;
 }
 //convert vector to string
 template<class T>
 string convert(vector<T> vv)
 {
-	ostringstream re;
-	for(int i=0;i<vv.size();i++)
-	{
-		if(i)re<<" ";
-		re<<vv[i];
-	}
-	return re.str();
+  ostringstream re;
+  for(int i=0;i<vv.size();i++)
+  {
+    if(i)re<<" ";
+    re<<vv[i];
+  }
+  return re.str();
 }
 
 //Be carefull for cut into strings!!!!
 template<class T>
 vector<T> parse(const string& ss,const char* cut=" ")
 {
-	vector<T> re;
-	for(int j=0;j<ss.size();j++)
-	{
-		string s;
-		while(j<ss.size()&&NULL==strchr(cut,ss[j]))
-			s+=ss[j++];
-		if(!s.empty())
-		{
-			T tmp;
-			istringstream is(s);
-			is>>tmp;
-			re.push_back(tmp);
-		}
-	}
-	return re;
+  vector<T> re;
+  for(int j=0;j<ss.size();j++)
+  {
+    string s;
+    while(j<ss.size()&&NULL==strchr(cut,ss[j]))
+      s+=ss[j++];
+    if(!s.empty())
+    {
+      T tmp;
+      istringstream is(s);
+      is>>tmp;
+      re.push_back(tmp);
+    }
+  }
+  return re;
 }
 template<>
 vector<string> parse(const string& ss,const char* cut)
 {
-	vector<string> re;
-	for(int j=0;j<ss.size();j++)
-	{
-		string s;
-		while(j<ss.size()&&NULL==strchr(cut,ss[j]))
-			s+=ss[j++];
-		if(!s.empty())
-		{
-			re.push_back(s);
-		}
-	}
-	return re;
+  vector<string> re;
+  for(int j=0;j<ss.size();j++)
+  {
+    string s;
+    while(j<ss.size()&&NULL==strchr(cut,ss[j]))
+      s+=ss[j++];
+    if(!s.empty())
+    {
+      re.push_back(s);
+    }
+  }
+  return re;
 }
 /************ bitwise functions  ************/
 int countBit(int n)
 {
   return __builtin_popcount(n);
-	int re=0;
-	while(n)re++,n^=Low(n);
-	return re;
+  int re=0;
+  while(n)re++,n^=Low(n);
+  return re;
 }
 // Most significant bit
 int MSB(int n)
 {
-	if(n==0)return 0;
-	while(Low(n)!=n)n^=Low(n);
-	return n;
+  if(n==0)return 0;
+  while(Low(n)!=n)n^=Low(n);
+  return n;
 }
 void initHash(int n,int hash[])
 {
-	for(int i=0;i<n;i++)
-		hash[Two(i)]=i;
+  for(int i=0;i<n;i++)
+    hash[Two(i)]=i;
 }
 void initBcnt(int n,int bcnt[])
 {
-	bcnt[0]=0;
-	for(int i=1;i<Two(n);i++)
-		bcnt[i]=bcnt[i^Low(i)]+1;
+  bcnt[0]=0;
+  for(int i=1;i<Two(n);i++)
+    bcnt[i]=bcnt[i^Low(i)]+1;
 }
 int print(int aa[]) {
-	return 0;
+  return 0;
 }
 
 template<typename T>
 vector<pair<T,T> >  interval_union(vector<pair<T,T> > all) {
-	vector<pair<T,T> > res;
-	if(all.empty())return res;
-	sort(all.begin(),all.end());
-	res.push_back(all[0]);
-	for(int i=1;i<all.size();i++) {
-		if(all[i].first<=res.back().second) {
-			res.back().second=max(res.back().second,all[i].second);
-		}
-		else {
-			res.push_back(all[i]);
-		}
-	}
-	return res;
+  vector<pair<T,T> > res;
+  if(all.empty())return res;
+  sort(all.begin(),all.end());
+  res.push_back(all[0]);
+  for(int i=1;i<all.size();i++) {
+    if(all[i].first<=res.back().second) {
+      res.back().second=max(res.back().second,all[i].second);
+    }
+    else {
+      res.push_back(all[i]);
+    }
+  }
+  return res;
 }
 template<typename T>
 class CPoint : public complex<T> {
@@ -362,26 +362,26 @@ int main()
   debug(v1);
   v1=-1000;
   debug(v1);
-	typedef pair<int,int> ppt;
-	vector<ppt> un;
-	Union(un,ppt(1,2),ppt(0,1),ppt(3,4));
-	assert(un.size()==2);
-	assert(un[0]==ppt(0,2));
-	assert(un[1]==ppt(3,4));
-	int t;
-	Max(t,1,2,3,4,5);
-	debug(t);
-	assert(t==5);
-	double tt;
-	Max(tt,1.1,2,3,4,-1.1);
-	debug(tt);
-	assert(tt==4);
-	debug(BCNT(1023));
-	unsigned int magic=0x077CB531U;
-	for(unsigned int i=(1U)<<31;i>0;i>>=1) 
-		cout<<((magic&i)?1:0);
-	cout<<endl;
-	//for(int i=0;i<10;i++)assert(BitIndex((1<<i))==i);
+  typedef pair<int,int> ppt;
+  vector<ppt> un;
+  Union(un,ppt(1,2),ppt(0,1),ppt(3,4));
+  assert(un.size()==2);
+  assert(un[0]==ppt(0,2));
+  assert(un[1]==ppt(3,4));
+  int t;
+  Max(t,1,2,3,4,5);
+  debug(t);
+  assert(t==5);
+  double tt;
+  Max(tt,1.1,2,3,4,-1.1);
+  debug(tt);
+  assert(tt==4);
+  debug(BCNT(1023));
+  unsigned int magic=0x077CB531U;
+  for(unsigned int i=(1U)<<31;i>0;i>>=1) 
+    cout<<((magic&i)?1:0);
+  cout<<endl;
+  //for(int i=0;i<10;i++)assert(BitIndex((1<<i))==i);
   vector<int> a,b;
   Make_vector(a,1,-1,0,-2,-1,-3,4,5);
   Make_vector(b,0,-1,-3,4,100,102);
@@ -397,6 +397,6 @@ int main()
   set<int> mem(All(a));
   Foreach(itr,mem)cerr<<*itr<<" ";cerr<<endl;
   Foreach(itr,mem)cerr<<*itr<<" ";cerr<<endl;
-	return 0;
+  return 0;
 }
 

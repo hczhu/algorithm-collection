@@ -9,24 +9,24 @@ class range_maxer_tester {
   public:
     void run() {
       fill(value,value+N,numeric_limits<int>::min());
-	//srand(time(NULL));
-	for(int i=0;i<10*N;i++) {
-		int pos=rand()%N;
-		if(rand()&1) {
-			int v=rand();
-			tree.update(pos,v);
-			value[pos]=max(value[pos],v);
-			//debug(value[pos]);
-			//debug(pos);
-		}
-		else {
-			int ans=numeric_limits<int>::min();
-			for(int i=0;i<=pos;i++)ans=max(ans,value[i]);
-			//debug(ans);
-			//debug(tree.query(pos));
-			//debug(pos);
-			assert(tree.query(pos)==ans);
-		}
+  //srand(time(NULL));
+  for(int i=0;i<10*N;i++) {
+    int pos=rand()%N;
+    if(rand()&1) {
+      int v=rand();
+      tree.update(pos,v);
+      value[pos]=max(value[pos],v);
+      //debug(value[pos]);
+      //debug(pos);
+    }
+    else {
+      int ans=numeric_limits<int>::min();
+      for(int i=0;i<=pos;i++)ans=max(ans,value[i]);
+      //debug(ans);
+      //debug(tree.query(pos));
+      //debug(pos);
+      assert(tree.query(pos)==ans);
+    }
     }
   }
 };
@@ -105,5 +105,5 @@ int main() {
   segment_tree_tester_t::run();
   (new range_maxer_tester())->run();
   numeric_tester::run();
-	return 0;
+  return 0;
 }

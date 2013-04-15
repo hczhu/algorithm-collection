@@ -49,33 +49,33 @@ inline double get_wall_time()
 }
 inline double get_clock_time()
 {
-	return 1.0*clock()/CLOCKS_PER_SEC;
+  return 1.0*clock()/CLOCKS_PER_SEC;
 }
 class auto_timer_t
 {
-	double start_time;
-	const char* msg;
+  double start_time;
+  const char* msg;
 public:
-	auto_timer_t(const char* p=""):start_time(get_wall_time()),msg(p){};
-	~auto_timer_t()	
-	{
-		ul_writelog(UL_LOG_WARNING,msg,get_wall_time()-start_time);
-	};
+  auto_timer_t(const char* p=""):start_time(get_wall_time()),msg(p){};
+  ~auto_timer_t()  
+  {
+    ul_writelog(UL_LOG_WARNING,msg,get_wall_time()-start_time);
+  };
 };
 
 inline int better_strncpy(char* dest,const char* source,size_t length)
 {
-	size_t len=strlen(source);
-	int ret=0;
-	if(length>len) {
-		strcpy(dest,source);
-	}
-	else {
-		memcpy(dest,source,length);
-		dest[length-1]=0;
-		ret=1;
-	}
-	return ret;
+  size_t len=strlen(source);
+  int ret=0;
+  if(length>len) {
+    strcpy(dest,source);
+  }
+  else {
+    memcpy(dest,source,length);
+    dest[length-1]=0;
+    ret=1;
+  }
+  return ret;
 }
 
 #endif

@@ -29,31 +29,31 @@ using namespace std;
 typedef long long int llint;
 template <int Len,typename T=int>
 class range_maxer_t {
-	T _tree[Len];
-	inline int lowbit(int x) {
-		return (x^(x-1))&x;
-	}
+  T _tree[Len];
+  inline int lowbit(int x) {
+    return (x^(x-1))&x;
+  }
 public:
-	range_maxer_t() {
-		for(int i=0;i<Len;i++) {
-			_tree[i]=numeric_limits<T>::min();
-		}
-	}
-	void update(int pos,T v) {
-		assert(pos>=0);
-		assert(pos<Len);
-		while(pos<Len) {
-			_tree[pos] =max(_tree[pos],v);
-			pos+=lowbit(pos+1);
-		}
-	}
-	T query(int right_bound) {
-		assert(right_bound<Len);
-		T res=numeric_limits<T>::min();
-		while(right_bound>=0) {
-			res=max(res,_tree[right_bound]);
-			right_bound-=lowbit(right_bound+1);
-		}
-		return res;
-	}
+  range_maxer_t() {
+    for(int i=0;i<Len;i++) {
+      _tree[i]=numeric_limits<T>::min();
+    }
+  }
+  void update(int pos,T v) {
+    assert(pos>=0);
+    assert(pos<Len);
+    while(pos<Len) {
+      _tree[pos] =max(_tree[pos],v);
+      pos+=lowbit(pos+1);
+    }
+  }
+  T query(int right_bound) {
+    assert(right_bound<Len);
+    T res=numeric_limits<T>::min();
+    while(right_bound>=0) {
+      res=max(res,_tree[right_bound]);
+      right_bound-=lowbit(right_bound+1);
+    }
+    return res;
+  }
 };

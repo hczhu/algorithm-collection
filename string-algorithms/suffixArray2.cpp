@@ -39,7 +39,7 @@ void getRank(int n,int* suffix,int* rank,int t)
 }
 void sortSuffix(int* num,int n)
 {
-	memcpy(array,num,sizeof(int)*n);
+  memcpy(array,num,sizeof(int)*n);
     array[n++]=(*max_element(array,array+n))+1;
     memcpy(rank,array,sizeof(int)*n);
     int i,t;
@@ -72,28 +72,28 @@ int rmq[L][N];
 int hash[1<<L];
 void RMQpreprocess(int n)
 {
-	for(int i=0;i<n;i++)
-		rmq[0][i]=height[i];
-	for(int i=1;(1<<i)<=n;i++)
-	for(int j=0;j+(1<<i)<=n;j++)
-		rmq[i][j]=min(rmq[i-1][j],rmq[i-1][j+(1<<(i-1))]);
-	hash[0]=-1;
-	for(int i=1,t=1;i<=n;i++)
-	{
-		hash[i]=hash[i-1];
-		if(i==t)t<<=1,hash[i]++;
-	}
+  for(int i=0;i<n;i++)
+    rmq[0][i]=height[i];
+  for(int i=1;(1<<i)<=n;i++)
+  for(int j=0;j+(1<<i)<=n;j++)
+    rmq[i][j]=min(rmq[i-1][j],rmq[i-1][j+(1<<(i-1))]);
+  hash[0]=-1;
+  for(int i=1,t=1;i<=n;i++)
+  {
+    hash[i]=hash[i-1];
+    if(i==t)t<<=1,hash[i]++;
+  }
 }
 int queryLCP(int a,int b)
 {
-	a=rank[a];
-	b=rank[b];
-	assert(a-b);
-	if(a>b)swap(a,b);
-	b--;
-	int len=b+1-a;
-	assert(len>=(1<<hash[len]));
-	int re=min(rmq[hash[len]][a],rmq[hash[len]][b-(1<<(hash[len]))+1]);
-	return re;
+  a=rank[a];
+  b=rank[b];
+  assert(a-b);
+  if(a>b)swap(a,b);
+  b--;
+  int len=b+1-a;
+  assert(len>=(1<<hash[len]));
+  int re=min(rmq[hash[len]][a],rmq[hash[len]][b-(1<<(hash[len]))+1]);
+  return re;
 }
 };

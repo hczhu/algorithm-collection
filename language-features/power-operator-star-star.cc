@@ -1,3 +1,4 @@
+// Overload of '*' to form a new operator '**' to implement rising to power.
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>

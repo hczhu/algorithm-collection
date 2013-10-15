@@ -28,19 +28,35 @@ using namespace std;
 #define SZ(vec) ((int)(vec).size())
 #define All(vec) (vec).begin(),(vec).end()
 
-class A {
-  public:
-    void print();
-  private:
-    int v_;
+class Base {
+ public:
+  void print() {
+    debug("Base");
+  }
+ private:
+  int v_;
 };
-class A {
-  public:
-    void print();
-  private:
-    int v_;
+
+class Derived : public Base {
+ public:
+  virtual void print() {
+    debug("Derived");
+  }
+ private:
+  int v_;
+};
+
+class Derived1 : public Derived {
+ public:
+  virtual void print() {
+    debug("Derived1");
+  }
 };
 
 int main() {
+  Derived* ptr = new Derived1();
+  ptr->print();
+  Base *bptr = ptr;
+  bptr->print();
   return 0;
 }

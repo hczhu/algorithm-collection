@@ -33,6 +33,9 @@ class Base {
   void print() {
     debug("Base");
   }
+  virtual ~Base() {
+    debug("~Base");
+  }
  private:
   int v_;
 };
@@ -41,6 +44,9 @@ class Derived : public Base {
  public:
   virtual void print() {
     debug("Derived");
+  }
+  ~Derived() {
+    debug("~Derived");
   }
  private:
   int v_;
@@ -51,6 +57,9 @@ class Derived1 : public Derived {
   virtual void print() {
     debug("Derived1");
   }
+  ~Derived1() {
+    debug("~Derived1");
+  }
 };
 
 int main() {
@@ -58,5 +67,6 @@ int main() {
   ptr->print();
   Base *bptr = ptr;
   bptr->print();
+  delete ptr;
   return 0;
 }

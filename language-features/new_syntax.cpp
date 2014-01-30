@@ -36,7 +36,7 @@ class Base {
     virtual int foo() {
       return 0;
     };
-    void* operator new(unsigned int num) {
+    void* operator new(size_t num) {
       debug(num);
       return ::new char[num]; 
     };

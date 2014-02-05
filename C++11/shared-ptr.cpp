@@ -5,7 +5,7 @@
 #include <mutex>
 #include <thread>
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <cassert>
 using namespace std;
 
@@ -20,7 +20,7 @@ struct FileAndLock {
           file->flush();
           file->close();
           delete file;
-          cout << "Closed file: " << filename;
+          cout << "Closed file: " << filename << endl;
     });
     assert(fileToAppend->is_open());
   }
@@ -33,12 +33,15 @@ struct FileAndLock {
 
 int main() {
   vector<thread> threads;
-  FileAndLock fileAndLock("/tmp/test.txt");
-  for (int i = 0; i < 5; ++i) {
-    threads.emplace_back([i, &fileAndLock]() {
+  map<int, FileAndLock> fileMap;
+  fileMap.insert(make_pair(0, FileAndLock("/tmp/test-0.txt")));
+  fileMap.insert(make_pair(1, FileAndLock("/tmp/test-1.txt")));
+  fileMap.insert(make_pair(2, FileAndLock("/tmp/test-2.txt")));
+  for (int i = 0; i < 6; ++i) {
+    threads.emplace_back([i, &fileMap]() {
       for (int j = 0; j < 5; ++j) {
-        lock_guard<mutex> lock(*fileAndLock.fileLock);
-        *fileAndLock.fileToAppend << "Thread #" << i << " couter: " << j << endl;
+        lock_guard<mutex> lock(*fileMap[i % 3].fileLock);
+        *fileMap[i % 3].fileToAppend << "Thread #" << i << " couter: " << j << endl;
       }
     });
   }

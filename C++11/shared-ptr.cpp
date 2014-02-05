@@ -19,6 +19,8 @@ struct FileAndLock {
         [filename](ofstream* file) {
           file->flush();
           file->close();
+          delete file;
+          cout << "Closed file: " << filename;
     });
     assert(fileToAppend->is_open());
   }

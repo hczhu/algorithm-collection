@@ -34,5 +34,11 @@ int main() {
   int F10c = Fibo(10);
   static_assert(F10 == 89, "F10 is not equal to 89");
   cout << "constexpr = " << F10 << " const = " << F10c <<endl;
+  const string str1("hello world.");
+  const string str2("hello world.");
+  cout << "str1 address: " << (uint64_t)str1.data() << " str2 address: " << (uint64_t)str2.data() << endl;
+  const char* const ptr1("hello world");
+  const char* const ptr2("hello world");
+  cout << "ptr1 address: " << (uint64_t)ptr1 << " ptr2 address: " << (uint64_t)ptr2 << endl;
   return 0;
 }

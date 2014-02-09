@@ -66,6 +66,9 @@ class FixedSizeVector<S, char> : public FixedSizeVectorBase<S, char> {
   }
 };
 
+template<int S>
+using FixedString = FixedSizeVector<S, char>;
+
 class Base {
 protected:
   int data_;
@@ -79,8 +82,9 @@ class Derived : public Base {
 };
 
 int main() {
-  FixedSizeVector<7, char> fixChar{"abcdefg"};
+  FixedString<7> fixChar{"abcdefg"};
   FixedSizeVector<5, int> fixInt{1, 2, 3, 4, 5};
   fixInt.Print();
+  fixChar.Print();
   return 0;
 }

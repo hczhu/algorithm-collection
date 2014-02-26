@@ -81,10 +81,21 @@ class Derived : public Base {
   }
 };
 
+struct Simple {
+  int a;
+  char b;
+  string c;
+};
+
 int main() {
   FixedString<7> fixChar{"abcdefg"};
   FixedSizeVector<5, int> fixInt{1, 2, 3, 4, 5};
   fixInt.Print();
   fixChar.Print();
+  Simple simple{1, 'a', "adfasfa"};
+  simple = Simple({2, 'b', "afasfas"});
+  int ivalue;
+  cin >> ivalue;
+  Simple another{ivalue, 'c', "afads"};
   return 0;
 }

@@ -34,6 +34,11 @@ struct Int {
   int v_;
 };
 
+vector<int> Dummy() {
+  vector<int> dummy();
+  return dummy;
+}
+
 int main() {
   map<int, unique_ptr<Int>> mem;
   mem.insert(make_pair(1, unique_ptr<Int>(new Int(1))));

@@ -55,6 +55,9 @@ class CandidatePointer {
     bool hasCandidate() const {
       return itr_ < end_;
     }
+    const Candidate& operator*() const {
+      return *(this->operator->());
+    }
 
   private:              
     CandidateList::const_iterator itr_;
@@ -72,6 +75,8 @@ int main() {
   auto pointer2 = ++pointer1;
   for (;pointer2.hasCandidate(); ++pointer2) {
     cout << pointer2->str << " = " << pointer2->weight << endl;
+    auto& cand = *pointer2;
+    cout << cand.str << " = " << cand.weight << endl;
   }
   return 0;
 }

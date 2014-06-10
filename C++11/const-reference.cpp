@@ -25,15 +25,13 @@
 using namespace std;
 #define debug(x) cerr<<#x<<"=\""<<x<<"\""<<" at line#"<<__LINE__<<endl;
 
-enum class Animal {
-  CAT,
-  DOG, 
-};
+vector<int> Foo() {
+  static const vect
+  return vector<int>{1, 2, 3};
+}
 
 int main() {
-  int a[100];
-  if (bool b = (1 == a[0]) && a[1] == 2) {
-    cout << "yes" << endl;
-  }
+  auto vv = Foo();
+  const auto& v1 = Foo();
   return 0;
 }

@@ -25,10 +25,22 @@
 using namespace std;
 #define debug(x) cerr<<#x<<"=\""<<x<<"\""<<" at line#"<<__LINE__<<endl;
 
+class Base {
+public:
+  const int& a;
+  Base(int& b) : a(b) {
+  }
+};
+
 int main() {
-  cout << numeric_limits<double>::min() << endl;
-  cout << numeric_limits<double>::lowest() << endl;
-  cout << numeric_limits<double>::max() << endl;
-  cout << (numeric_limits<double>::min() < -100) << endl;
+  int x = 10, y = -10;
+  Base b1(x);
+  Base b2 = b1;
+  Base b3(y);
+  cout << b3.a << endl;
+  string aa = "aaaa";
+  cout << aa << endl;
+  string bb = std::move(aa);
+  cout << aa << endl;
   return 0;
 }

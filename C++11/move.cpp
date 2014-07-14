@@ -38,9 +38,21 @@ int main() {
   Base b2 = b1;
   Base b3(y);
   cout << b3.a << endl;
-  string aa = "aaaa";
-  cout << aa << endl;
-  string bb = std::move(aa);
-  cout << aa << endl;
+  {
+    string aa = "aaaa";
+    cout << aa << endl;
+    string bb = std::move(aa);
+    cout << aa << endl;
+  }
+  {
+    cout << "move const reference." << endl;
+    string aa = "xxxxx";
+    const auto& aaa = aa;
+    string cc = std::move(aaa);
+    cout << aa << endl;
+    cout << aaa << endl;
+    cout << cc << endl;
+    cout << "move const reference." << endl;
+  }
   return 0;
 }

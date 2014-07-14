@@ -26,12 +26,25 @@ using namespace std;
 #define debug(x) cerr<<#x<<"=\""<<x<<"\""<<" at line#"<<__LINE__<<endl;
 
 vector<int> Foo() {
-  static const vect
   return vector<int>{1, 2, 3};
 }
+struct B {
+  const string& aa;
+  B(const string& a)  : aa(a)
+  { cout << "Constructing B @" << this << endl; }
+  ~B() { cout << "Destructing B @" << this << endl;}
+};
+
+struct A {
+  const B& b;
+  A(const B& bb) : b(bb)
+  { cout << "Constructing A @" << this << endl; }
+  ~A() { cout << "Destructing A @" << this << endl;}
+};
 
 int main() {
-  auto vv = Foo();
-  const auto& v1 = Foo();
+  A a(B("afdsafasfd"));
+  cout << a.b.aa << endl;
+  cout << &a.b << endl;
   return 0;
 }

@@ -42,9 +42,15 @@ struct A {
   ~A() { cout << "Destructing A @" << this << endl;}
 };
 
+void foo(const B& b) {
+  B bb("adad");
+  cout << b.aa << endl;
+}
+
 int main() {
   A a(B("afdsafasfd"));
   cout << a.b.aa << endl;
   cout << &a.b << endl;
+  foo(B("12345"));
   return 0;
 }

@@ -37,9 +37,16 @@ public:
 };
 
 int main() {
-  vector<int> vv;
-  Base base(vv);
-  Base base1 = base;
-  base1 = Base(vv);
+  double c = 1.0;
+  double d = 3;
+  double e;
+  cin >> e;
+  double a = c / d;
+  double b = a * e;
+  cout << c << " == " << b << endl;
+  // vector<int> vv;
+  // Base base(vv);
+  // Base base1 = base;
+  // base1 = Base(vv);
   return 0;
 }

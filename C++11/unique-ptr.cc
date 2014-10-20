@@ -38,19 +38,8 @@ vector<int> Dummy() {
 }
 
 int main() {
-  map<int, unique_ptr<Int>> mem;
-  mem.emplace(1, unique_ptr<Int>(new Int(1)));
-  mem[0] = unique_ptr<Int>(new Int(0));
-  cout << mem[0]->v_ << endl;
-  auto itr = mem.find(1);
-  cout << itr->second->v_ << endl;
-  mem.erase(itr);
-
-  vector<unique_ptr<Int>> vec;
-  vec.emplace_back(new Int(2));
-  vec.emplace_back(new Int(3));
-  vec.push_back(std::move(vec[0]));
-  cout << vec[0].get() << endl;
+  unique_ptr<int> ptr_int(new int(100));
+  auto& ptr_int_ref = ptr_int;
   return 0;
 }
 

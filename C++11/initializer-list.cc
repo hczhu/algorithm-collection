@@ -97,5 +97,10 @@ int main() {
   int ivalue;
   cin >> ivalue;
   Simple another{ivalue, 'c', "afads"};
+  map<string, set<string>> complicated{
+    { "aa", { "1", "2"}},
+    { "bb", set<string>{}},
+  };
+  cout << complicated.size();
   return 0;
 }

@@ -41,5 +41,10 @@ int main() {
   for (auto& thr : threads) {
     thr.join();
   }
+  vector<int> vect;
+  auto func = [&]() {
+    vect.push_back(10);
+  };
+  func();
   return 0;
 }

@@ -45,33 +45,11 @@ private:
 
 
 int main() {
+  // decltype(std::min<int>)
+  std::function<const int&(const int&, const int&)> minMax = 1 ? std::max<int> : std::min<int>;
   std::vector<Foo> fooVec;
   fooVec.emplace_back();
   fooVec.emplace_back();
   const auto& fooVecRef = fooVec;
-  int p = fooVecRef[0][2];
-  static constexpr int kMax = 10;
-  static const int kConst = 200;
-  array<int, kConst> ar;
-  unique_ptr<int> ptr(new int(100));
-  auto& ptr_ref = ptr;
-  *ptr_ref = -100;
-  cout << *ptr << endl;
-  double a = std::numeric_limits<double>::lowest();
-  cout << a << " " << a + a << endl;
-  cout << ((a + a) > a) << endl;
-  cout << ((a + a) < a) << endl;
-  cout << (a > (a + a)) << endl;
-  vector<int> aa(2);
-  vector<int> bb(3);
-  cout << (aa == bb) << endl;
-  
-  {
-    foo();
-    Foo f;
-    int a = 10;
-    a += (f[2] = -1);
-    cout << a << endl;
-  }
   return 0;
 }

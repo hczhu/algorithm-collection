@@ -33,14 +33,24 @@ public:
   }
 };
 
+class D {
+ public:
+  void operator()(A* a) {}
+};
+
 int main() {
   A a;
   const A* ptr1 = &a;
   // ptr1->nonconstFoo(); Won't compile.
-  const unique_ptr<A> ptr2(&a);
+  const unique_ptr<A, D> ptr2(&a, D());
   ptr2->nonconstFoo();
   using Aptr = A*;
   const Aptr ptr3 = &a;
   ptr3->nonconstFoo();  //interesting part.
+  vector<unique_ptr<A>> vec;
+  vec.emplace_back(new A());
+  vec.emplace_back(new A());
+  vec.emplace_back(new A());
+  sort(vec.begin(), vec.end());
   return 0;
 }

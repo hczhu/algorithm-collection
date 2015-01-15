@@ -30,10 +30,18 @@ enum class Animal {
   DOG, 
 };
 
+enum Test {
+  A = 0,
+  B = 1, 
+};
+
 int main() {
   int a[100];
   if (bool b = (1 == a[0]) && a[1] == 2) {
     cout << "yes" << endl;
   }
+  auto test = static_cast<Test>(2);
+  auto animal = static_cast<Animal>(10);
+  cout << test << endl;
   return 0;
 }

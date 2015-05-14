@@ -1,13 +1,6 @@
 #!/usr/bin/python2.4
-#
-# Copyright 2011 Google Inc. All Rights Reserved.
 
-"""One-line documentation for logistic-MSE module.
-
-A detailed description of logistic-MSE.
-"""
-
-__author__ = 'hczhu@google.com (Hongcheng Zhu)'
+__author__ = 'zhuhcheng@gmail.com (Hongcheng Zhu)'
 
 import sys
 import math
@@ -29,6 +22,7 @@ def readData(filename):
     t.append(1.0)
     X.append(t)
   return X,Y
+
 def calculate_sigmod(X,Para):
   res=0.0
   for i in range(len(X)): res+=X[i]*Para[i]
@@ -44,6 +38,7 @@ def squaredSum(Y1,Y2):
   for i in range(len(Y1)):
     res+=(Y1[i]-Y2[i])**2
   return res
+
 def doTraining(X,Y,itr_times):
   eps=10.0
   dim=len(X[0])

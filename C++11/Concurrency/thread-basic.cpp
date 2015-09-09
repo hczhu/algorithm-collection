@@ -48,7 +48,9 @@ int threadFoo(const std::thread::id& parentId) {
 int main() {
   std::vector<std::thread> threads;
   std::thread::id thisId = std::this_thread::get_id();
-  for (int i = 0; i < 4; ++i) {
+  const auto threadNum = std::thread::hardware_concurrency();
+  std::cout << "Using " << threadNum << " threads." << std::endl;
+  for (int i = 0; i < threadNum; ++i) {
     threads.emplace_back([&thisId]() {
       threadFoo(thisId);
     });

@@ -102,5 +102,10 @@ int main() {
     { "bb", set<string>{}},
   };
   cout << complicated.size();
+  cout << "-----------" << endl;
+  std::string haha(100, 'a');
+  std::cout << haha << std::endl;
+  const std::vector<std::string> hahaVec{std::move(haha)};
+  std::cout << haha << std::endl;
   return 0;
 }

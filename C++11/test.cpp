@@ -246,7 +246,10 @@ void FooStrStr(StrStr value) {
 
 }
 
+static const std::string kStr = "kStr";
 int main() {
+  const std::string& refStr = kStr;
+  std::string strPtr = &kStr;
   std::string hehe;
   StrStr strStr(hehe);
   std::cout << "--------" << std::endl;

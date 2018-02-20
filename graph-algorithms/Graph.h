@@ -94,5 +94,4 @@ private:
   // starting node 'i'.
   std::vector<size_t> start_;
 };
-
 }

@@ -42,8 +42,7 @@ public:
       CHECK_NULL_POINTER(next_dpointer, -1);
       dpointer->prev = next_dpointer->prev;
       next_dpointer->prev = vptr_node;
-    }
-    else {
+    } else {
       dpointer->prev =
           combine_vaddr(INVALID_VADDR_TYPE, get_vaddr_offset(vptr_list));
     }
@@ -66,16 +65,14 @@ public:
         SET_POINTER(dpointer->next, prev, dpointer->prev);
       }
       SET_POINTER(dpointer->prev, next, dpointer->next);
-    }
-    else {
+    } else {
       assert(get_vaddr_type(dpointer->prev) == INVALID_VADDR_TYPE);
       const Vaddress32 header_vaddr = get_vaddr_offset(dpointer->prev);
       Vaddress32 *m_head = get_list_head_func((header_vaddr));
       *m_head = dpointer->next;
       if (NULL_VADDRESS32 != *m_head) {
         SET_POINTER(*m_head, prev, dpointer->prev);
-      }
-      else {
+      } else {
         v_list_head_out = *m_head;
       }
     }

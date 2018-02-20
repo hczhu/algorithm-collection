@@ -9,7 +9,6 @@ using namespace std;
 // Also works for non simple graph
 namespace twoBlockTree {
 // Used to  finding 2-edge connected components
-//#define twoEdgeConnectedComponents
 #define N 1000
 #define M (N * N / 2)
 int begin[N], edge[2 * M];
@@ -63,10 +62,6 @@ void biconnectedComponents(int n, int m, int end1[], int end2[],
         begin[v]++;
       }
       if (begin[v] == etop[v]) {
-#ifdef OUTPUT
-        printf("Out stack %d low=%d\n", v, low[v]);
-#endif
-#ifndef twoEdgeConnectedComponents
         if (top == 0)
           continue;
         int f = stack[top - 1];
@@ -78,31 +73,24 @@ void biconnectedComponents(int n, int m, int end1[], int end2[],
           while (flag[buffer[out - 1]] >= flag[v])
             com.push_back(buffer[--out]);
           components.push_back(com);
-#ifndef NDEBUG
           printf("-------------------------\nFind 2-block root=%d\n", f);
           for (int i = 0; i < com.size(); i++)
             printf("%d ", com[i]);
           puts("");
-#endif
         }
-#else
         int f;
         if (top == 0 || low[v] > flag[f = stack[top - 1]]) {
           vector<int> com;
           while (out && flag[buffer[out - 1]] >= flag[v])
             com.push_back(buffer[--out]);
           components.push_back(com);
-#ifndef OUTPUT
           printf("-------------------------\n\\
               Find 2-edge connected components root=%d\n",
                  v);
           for (int i = 0; i < com.size(); i++)
             printf("%d ", com[i]);
           puts("");
-#endif
-        }
-#endif
-        else
+        } else
           low[f] = min(low[v], low[f]);
         continue;
       }
@@ -113,10 +101,8 @@ void biconnectedComponents(int n, int m, int end1[], int end2[],
       buffer[out++] = u;
       flag[u] = ff++;
       low[u] = flag[u];
-#ifdef OUTPUT
       printf("Visit %d flag %d\n", u, flag[u]);
-#endif
     }
   }
 }
-}; // namespace twoBlockTree
+} // namespace twoBlockTree

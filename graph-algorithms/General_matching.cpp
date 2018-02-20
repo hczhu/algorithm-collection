@@ -175,21 +175,21 @@ bool findPath(const int s, int n) {
         top -= len;
         contract(stack + top, len, n);
       } else {
-        // v must be a just contracted vertex vertex
-        // The just contracted new vertex forms a odd cycle with some already
-        // visited vertex
-        /*
-                    3---------------0
-                    |               |
-          1 ------------- 2
-                    |               |
-                    --------4--------
+// v must be a just contracted vertex vertex
+// The just contracted new vertex forms a odd cycle with some already
+// visited vertex
+/*
+            3---------------0
+            |               |
+  1 ------------- 2
+            |               |
+            --------4--------
 
-          match:  3--0  1--2
-          path:   4--1--2--0--3
-          backward odd cycle:  4--1--2
-          forward odd cycle: 5(4,1,2)--0---3
-         */
+  match:  3--0  1--2
+  path:   4--1--2--0--3
+  backward odd cycle:  4--1--2
+  forward odd cycle: 5(4,1,2)--0---3
+ */
 #ifdef OUTPUT
         printf("Find forward odd cycle stem=%d new ind=%d\n", u, n);
 #endif

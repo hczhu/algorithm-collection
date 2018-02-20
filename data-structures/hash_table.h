@@ -1,10 +1,3 @@
-/*
- * zhuhongcheng@baidu.com  November 12, 2009
- * 这里基本不检查NULL_VADDRESS32伪指针，NULL_VADDRESS32在通过mem_pool解析的时候会返回NULL指针
- * 但是一定检查NULL指针以避免出core
- * 注意，只打fatal和warning
- *
-*/
 #ifndef __HASHTABLE_HEADER__
 #define __HASHTABLE_HEADER__
 
@@ -164,9 +157,6 @@ public:
   Vaddress32 add_node_vaddr(const Usr_data_t &usr_data, bool overwrite) {
     return add_node_vaddr(m_extract_key_func(usr_data), usr_data, overwrite);
   }
-  //注意一写多读
-  // overwrite为真表示如果要加入的key已经存在，则替换为新的usr_data；为假则不替换
-  //返回NULL_VADDRESS32表示操作失败
   Vaddress32 add_node_vaddr(const Hash_key_t &key, const Usr_data_t &usr_data,
                             bool overwrite) {
     Vaddress32 vptr = NULL_VADDRESS32;
@@ -196,11 +186,9 @@ public:
     m_node_num++;
     return vptr;
   }
-  // overwrite为真表示如果要加入的key已经存在，则替换为新的usr_data；为假则不替换
   Usr_data_t *add_node(const Usr_data_t &usr_data, bool overwrite) {
     return add_node(m_extract_key_func(usr_data), usr_data, overwrite);
   }
-  // overwrite为真表示如果要加入的key已经存在，则替换为新的usr_data；为假则不替换
   Usr_data_t *add_node(const Hash_key_t &key, const Usr_data_t &usr_data,
                        bool overwrite) {
     Hash_node_t *ptr = convert(add_node_vaddr(key, usr_data, overwrite));
@@ -283,7 +271,6 @@ public:
              detect_info.load_factor, detect_info.average_list_length);
     return 0;
   };
-  //注意一写多读,因为一写多读，rehash期间不会增删节点
   int rehash(uint32_t new_bucket_size) {
     if (0 == new_bucket_size) {
       new_bucket_size = m_bucket_size << 1;
@@ -314,7 +301,7 @@ public:
     //以下作切换
     const Vaddress32 *old_bucket = m_p_hash_bucket;
     //如果hash
-    //bucket变大，则先切换bucket，再改变bucket_size;否则可能在一写多读的情况下出现访问越界
+    // bucket变大，则先切换bucket，再改变bucket_size;否则可能在一写多读的情况下出现访问越界
     if (new_bucket_size > m_bucket_size) {
       m_p_hash_bucket = new_hash_bucket;
       m_bucket_size = new_bucket_size;

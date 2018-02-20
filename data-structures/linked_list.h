@@ -1,8 +1,3 @@
-/*
- * zhuhongcheng@baidu.com
- * November 11, 2009 (Single men's festival)
- *
- */
 #ifndef __LINKED_LIST_HEADER__
 #define __LINKED_LIST_HEADER__
 
@@ -13,14 +8,12 @@
 #include <algorithm>
 #include <cassert>
 // using namespace std;
-//改变第一个参数指向的节点的pointer
 #define SET_POINTER(vptr, prev_or_next, new_value)                             \
   {                                                                            \
     double_pointer_t *tmp_pointer = get_pointer_func((vptr));                  \
     CHECK_NULL_POINTER(tmp_pointer, -1);                                       \
     tmp_pointer->prev_or_next = (new_value);                                   \
   }
-//改变第一个参数本身
 #define GET_POINTER(dest, vptr, prev_or_next)                                  \
   {                                                                            \
     double_pointer_t *tmp_pointer = get_pointer_func(vptr);                    \
@@ -39,21 +32,17 @@ protected:
   Get_pointer_t get_pointer_func;
 
 public:
-  //注意一写多读
-  //节点被加到头部
   int add_node(Vaddress32 vptr_list, Vaddress32 vptr_node) {
     double_pointer_t *dpointer = get_pointer_func(vptr_node);
     CHECK_NULL_POINTER(dpointer, -1);
     Vaddress32 *m_head = get_list_head_func(vptr_list);
     CHECK_NULL_POINTER(m_head, -1);
-    //非空链表
     if (NULL_VADDRESS32 != *m_head) {
       double_pointer_t *next_dpointer = get_pointer_func(*m_head);
       CHECK_NULL_POINTER(next_dpointer, -1);
       dpointer->prev = next_dpointer->prev;
       next_dpointer->prev = vptr_node;
     }
-    //空链表
     else {
       dpointer->prev =
           combine_vaddr(INVALID_VADDR_TYPE, get_vaddr_offset(vptr_list));
@@ -62,9 +51,6 @@ public:
     *m_head = vptr_node;
     return 0;
   };
-  //注意一写多读
-  // v_list_head是传出参数，如果删除节点后，节点原来所在的链表变成空链表，则该参数为链表头节点的虚地址
-  //其他情况下，该传出参数的值为NULL_VADDRESS32;
   int remove_node(Vaddress32 vptr_node, Vaddress32 &v_list_head_out) {
     v_list_head_out = NULL_VADDRESS32;
     const double_pointer_t *dpointer = get_pointer_func(vptr_node);
@@ -75,26 +61,20 @@ public:
                   vptr_node);
       return 0;
     }
-    //非链表首节点
     if (get_vaddr_type(dpointer->prev) != INVALID_VADDR_TYPE) {
-      //存在后继节点
       if (NULL_VADDRESS32 != dpointer->next) {
         SET_POINTER(dpointer->next, prev, dpointer->prev);
       }
-      //将remove_node从链表中去除
       SET_POINTER(dpointer->prev, next, dpointer->next);
     }
-    //链表首节点
     else {
       assert(get_vaddr_type(dpointer->prev) == INVALID_VADDR_TYPE);
       const Vaddress32 header_vaddr = get_vaddr_offset(dpointer->prev);
       Vaddress32 *m_head = get_list_head_func((header_vaddr));
       *m_head = dpointer->next;
-      //存在后继节点
       if (NULL_VADDRESS32 != *m_head) {
         SET_POINTER(*m_head, prev, dpointer->prev);
       }
-      //成为空链表
       else {
         v_list_head_out = *m_head;
       }
@@ -123,7 +103,6 @@ public:
     double_pointer_t *pointer = get_pointer_func(vptr);
     CHECK_NULL_POINTER(pointer, NULL_VADDRESS32);
     Vaddress32 ret = pointer->prev;
-    //当前节点是头节点
     if (get_vaddr_type(ret) == INVALID_VADDR_TYPE) {
       ret = NULL_VADDRESS32;
     }
@@ -143,7 +122,6 @@ class doubly_linked_list_sorted_t
   using doubly_linked_list_unsorted_t<Get_list_head_t,
                                       Get_pointer_t>::get_pointer_func;
   int insert_node_after(Vaddress32 v_pre_node, Vaddress32 v_add_node) {
-    //依次比较节点
     double_pointer_t *p_add_node_pointer = get_pointer_func(v_add_node);
     CHECK_NULL_POINTER(p_add_node_pointer, -1);
     Vaddress32 v_next_node = NULL_VADDRESS32;
@@ -167,7 +145,6 @@ class doubly_linked_list_sorted_t
   }
 
 public:
-  //用于debug
   bool check_sorted_list(Vaddress32 v_list_head) {
     if (NULL_VADDRESS32 == v_list_head) {
       return true;
@@ -185,7 +162,6 @@ public:
     }
     return true;
   }
-  //传出参数v_list_head_out同remove_node
   int remove_sorted_node(Vaddress32 v_remove_node,
                          Vaddress32 &v_list_head_out) {
     return Base_t::remove_node(v_remove_node, v_list_head_out);
@@ -199,8 +175,6 @@ public:
     Vaddress32 *p_list_head = Base_t::get_list_head_func(vptr_list);
     CHECK_NULL_POINTER(p_list_head, -1);
 
-    //注意一写多读
-    //空链表
     if (NULL_VADDRESS32 == *p_list_head) {
       p_add_node_pointer->next = NULL_VADDRESS32;
       p_add_node_pointer->prev =
@@ -208,7 +182,6 @@ public:
       *p_list_head = vptr_node;
       return 0;
     }
-    //比头节点还小
     if (node_comparator(vptr_node, *p_list_head) <= 0) {
       double_pointer_t *p_head_pointer = Base_t::get_pointer_func(*p_list_head);
       CHECK_NULL_POINTER(p_head_pointer, -1);
@@ -223,7 +196,6 @@ public:
   int change_sorted_node(Vaddress32 v_old_node, Vaddress32 v_new_node) {
     Vaddress32 v_pre_node;
     GET_POINTER(v_pre_node, v_old_node, prev);
-    //将要 改变的节点是链表首节点
     if (INVALID_VADDR_TYPE == get_vaddr_type(v_pre_node)) {
       Vaddress32 v_list_head = Base_t::get_list_head_func(v_pre_node);
       if (remove_sorted_node(v_old_node) ||
@@ -235,7 +207,6 @@ public:
 
     double_pointer_t *p_new_pointer = Base_t::get_pointer_func(v_new_node);
     CHECK_NULL_POINTER(p_new_pointer, -1);
-    //节点排名因子未变化
 
     if (0 == node_comparator(v_old_node, v_new_node)) {
       // copy on write
@@ -254,22 +225,18 @@ public:
     if (remove_sorted_node(v_old_node)) {
       return -1;
     }
-    //先向前移动
     while (get_vaddr_type(v_pre_node) != INVALID_VADDR_TYPE &&
            node_comparator(v_pre_node, v_new_node) > 0) {
       GET_POINTER(v_pre_node, v_pre_node, prev);
     }
-    //到达链表头
     if (get_vaddr_type(v_pre_node) == INVALID_VADDR_TYPE) {
       return add_sorted_node(get_vaddr_offset(v_pre_node), v_new_node);
     }
-    // v_pre_node不在链表头
     return insert_node_after(v_pre_node, v_new_node);
   };
 };
 
 //**************************************************************************
-// 以下是单测代码
 
 namespace Doubly_linked_list_unsorted_tester {
 struct node_t {

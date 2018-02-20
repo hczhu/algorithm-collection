@@ -1,10 +1,3 @@
-/*
- * zhuhongcheng@baidu.com
-*/
-/*
-这个程序从标准输入读入定义结构体的头文件，输出打印所有结构题的函数代码到标准输出文件。
-可能会因为格式问题assert失败
-*/
 #include <algorithm>
 #include <cassert>
 #include <cmath>

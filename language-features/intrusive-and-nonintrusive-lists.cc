@@ -73,19 +73,19 @@ class NonIntrusiveList {
 };
 #define CHECK_DERIVE(x, y) do { y* _tmp_y = (x*)(0); _tmp_y = NULL;} while(0);
 int main() {
-  CHECK_DERIVE(Node, IntrusiveList);
+  CHECK_DERIVE(Node, Link);
   const int n=10000000;
   double start = 1.0 * clock() / CLOCKS_PER_SEC;
   IntrusiveList intrusive_list;
   Rep(i, n) {
     intrusive_list.AddToFront(new Node(i));
   }
-  cerr << "Time = " << 1.0 *clock() / CLOCKS_PER_SEC - start << " s" << endl;
+  cerr << "Intrusive Time = " << 1.0 *clock() / CLOCKS_PER_SEC - start << " s" << endl;
   start = 1.0 * clock() / CLOCKS_PER_SEC;
   NonIntrusiveList<int> nonintrusive_list;
   Rep(i, n) {
     nonintrusive_list.AddToFront(*(new int(i)));
   }
-  cerr << "Time = " << 1.0 *clock() / CLOCKS_PER_SEC - start << " s" << endl;
+  cerr << "Non-intrusive Time = " << 1.0 *clock() / CLOCKS_PER_SEC - start << " s" << endl;
   return 0;
 }
